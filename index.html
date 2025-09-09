@@ -27,11 +27,35 @@
             color: #2D3748;
             font-weight: 600;
         }
+        .active-top-menu-item {
+            background-color: #A7D4DB;
+            color: #2D3748;
+            font-weight: 600;
+        }
     </style>
 </head>
-<body class="flex min-h-screen">
-    <!-- Left Menu (compact and linear) -->
-    <div class="fixed top-0 left-0 w-full h-full sm:w-64 sm:h-screen flex-shrink-0 flex flex-col items-center bg-[#C3E0E5] p-6 sm:p-4 rounded-b-lg sm:rounded-r-none z-10 overflow-y-auto scrollbar-hide">
+<body class="flex flex-col sm:flex-row min-h-screen">
+
+    <!-- Top Menu for Mobile/Tablet Screens -->
+    <div class="fixed top-0 left-0 w-full bg-[#C3E0E5] shadow-md z-20 flex flex-col items-center p-4 sm:hidden rounded-b-lg">
+        <!-- Photo and Title -->
+        <div class="flex items-center mb-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-xl mr-4">
+                <img src="images/CVphoto.jpg" alt="Matteo Bari's CV Photo" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-xl font-bold text-gray-800">Matteo Bari</h1>
+        </div>
+        <!-- Menu pages -->
+        <nav class="flex flex-row flex-wrap justify-center w-full">
+            <a href="#about-myself" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">About myself</a>
+            <a href="#projects" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">My Projects</a>
+            <a href="#experience" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">My Experience</a>
+            <a href="#contacts" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">Contacts</a>
+        </nav>
+    </div>
+
+    <!-- Left Menu for Desktop Screens -->
+    <div class="hidden sm:flex fixed top-0 left-0 w-64 h-screen flex-shrink-0 flex-col items-center bg-[#C3E0E5] p-6 rounded-r-lg z-10 overflow-y-auto scrollbar-hide">
         
         <!-- CV Photo -->
         <div class="w-32 h-32 md:w-40 md:h-40 bg-gray-700 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl">
@@ -43,15 +67,15 @@
 
         <!-- Menu pages -->
         <nav class="flex flex-col w-full text-center">
-            <a href="#about-myself" class="menu-item py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">About myself</a>
-            <a href="#projects" class="menu-item py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Projects</a>
-            <a href="#experience" class="menu-item py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Experience</a>
-            <a href="#contacts" class="menu-item py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">Contacts</a>
+            <a href="#about-myself" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">About myself</a>
+            <a href="#projects" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Projects</a>
+            <a href="#experience" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Experience</a>
+            <a href="#contacts" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">Contacts</a>
         </nav>
     </div>
 
     <!-- Main content container to accommodate the fixed menu -->
-    <div class="flex-1 overflow-hidden sm:ml-64">
+    <div class="flex-1 overflow-hidden pt-48 sm:pt-0 sm:ml-64">
         <div id="content-area" class="w-full p-6 md:p-10 lg:p-16 overflow-y-auto scrollbar-hide">
             <!-- Upper dynamic text slide with a transparent background -->
             <div id="text-slide" class="relative w-full h-48 md:h-64 lg:h-80 mb-8 rounded-lg overflow-hidden flex items-center justify-center bg-transparent">
@@ -71,7 +95,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const contentArea = document.getElementById('content-area');
-            const menuItems = document.querySelectorAll('.menu-item');
+            const menuItemsLeft = document.querySelectorAll('.menu-item-left');
+            const menuItemsTop = document.querySelectorAll('.menu-item-top');
+            const allMenuItems = document.querySelectorAll('.menu-item-left, .menu-item-top');
             const pageContent = document.getElementById('page-content');
             const textSlide = document.getElementById('text-slide');
 
@@ -288,42 +314,52 @@
                             </p>`;
                         break;
                     default:
-                        // Fallback to the about-myself page
                         updateContent('about-myself');
                         return;
                 }
                 
-                // Update text content and the text slide
                 pageContent.innerHTML = `<h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">${title}</h2>${content}`;
                 textSlide.innerHTML = `<h2 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold text-gray-800 tracking-wider">${textSlideContent}</h2>`;
-
-                // Scroll to the top of the content area
                 contentArea.scrollTop = 0;
             }
 
-            // Set up click handlers for menu items
-            menuItems.forEach(item => {
+            // Set up click handlers for all menu items
+            allMenuItems.forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
-                    // Remove active class from all and add to the clicked item
-                    menuItems.forEach(el => el.classList.remove('active-menu-item'));
-                    e.target.classList.add('active-menu-item');
+                    allMenuItems.forEach(el => {
+                        el.classList.remove('active-menu-item');
+                        el.classList.remove('active-top-menu-item');
+                    });
                     
                     const page = e.target.getAttribute('href').substring(1);
                     updateContent(page);
+                    
+                    // Add active class based on menu type
+                    menuItemsLeft.forEach(el => {
+                        if (el.getAttribute('href').substring(1) === page) {
+                            el.classList.add('active-menu-item');
+                        }
+                    });
+                    menuItemsTop.forEach(el => {
+                        if (el.getAttribute('href').substring(1) === page) {
+                            el.classList.add('active-top-menu-item');
+                        }
+                    });
                 });
             });
 
             // Handle initial page load
             const initialPage = window.location.hash.substring(1) || 'about-myself';
-            const initialMenuItem = document.querySelector(`.menu-item[href="#${initialPage}"]`);
-            if (initialMenuItem) {
-                initialMenuItem.classList.add('active-menu-item');
-                updateContent(initialPage);
-            } else {
-                updateContent('about-myself');
+            const initialMenuItemLeft = document.querySelector(`.menu-item-left[href="#${initialPage}"]`);
+            const initialMenuItemTop = document.querySelector(`.menu-item-top[href="#${initialPage}"]`);
+            if (initialMenuItemLeft) {
+                initialMenuItemLeft.classList.add('active-menu-item');
             }
+            if (initialMenuItemTop) {
+                initialMenuItemTop.classList.add('active-top-menu-item');
+            }
+            updateContent(initialPage);
         });
     </script>
 </body>
