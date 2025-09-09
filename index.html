@@ -49,7 +49,7 @@
         <nav class="flex flex-row flex-wrap justify-center w-full">
             <a href="#about-myself" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">About myself</a>
             <a href="#projects" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">My Projects</a>
-            <a href="#experience" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">My Experience</a>
+            <a href="#experience" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-gray-800">My Experience</a>
             <a href="#contacts" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">Contacts</a>
         </nav>
     </div>
@@ -78,8 +78,8 @@
     <div class="flex-1 overflow-hidden pt-48 sm:pt-0 sm:ml-64">
         <div id="content-area" class="w-full p-6 md:p-10 lg:p-16 overflow-y-auto scrollbar-hide">
             <!-- Upper dynamic text slide with a transparent background -->
-            <div id="text-slide" class="relative w-full h-48 md:h-64 lg:h-80 mb-8 rounded-lg overflow-hidden flex items-center justify-center bg-transparent">
-                <h2 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal">WELCOME</h2>
+            <div id="text-slide" class="relative w-full mb-8 rounded-lg overflow-hidden flex items-center justify-center bg-transparent">
+                <h2 class="text-6xl sm:text-8xl lg:text-9xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal leading-tight">WELCOME</h2>
             </div>
 
             <!-- Dynamic Title & Content -->
@@ -272,7 +272,7 @@
                 
                 // Update the main content area
                 pageContent.innerHTML = `<h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">${title}</h2>${contentHTML}`;
-                textSlide.innerHTML = `<h2 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal">${textSlideContent}</h2>`;
+                textSlide.innerHTML = `<h2 class="text-6xl sm:text-8xl lg:text-9xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal leading-tight">${textSlideContent}</h2>`;
                 contentArea.scrollTop = 0; // Scroll to the top of the content area
             }
 
