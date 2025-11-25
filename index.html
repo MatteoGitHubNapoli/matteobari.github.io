@@ -1,318 +1,879 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matteo Bari's Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Matteo Bari - Personal Website</title>
     <style>
+        :root {
+            --light-blue: #e6f2ff;
+            --dark-blue: #0077cc;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FFFFFF;
-            color: #2D3748;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
         }
-        .scrollbar-hide::-webkit-scrollbar {
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Menu Styles */
+        .left-menu {
+            width: 280px;
+            background-color: var(--light-blue);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .photo-cv {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .photo-cv img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-pages {
+            width: 100%;
+        }
+
+        .menu-pages ul {
+            list-style: none;
+            width: 100%;
+        }
+
+        .menu-pages li {
+            margin-bottom: 15px;
+        }
+
+        .menu-pages a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-pages a:hover, .menu-pages a.active {
+            background-color: var(--white);
+            color: var(--dark-blue);
+        }
+
+        /* Top Menu Styles (for mobile/tablet) */
+        .top-menu {
             display: none;
+            background-color: var(--light-blue);
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
-        .scrollbar-hide {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+
+        .top-menu-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .active-menu-item {
-            background-color: #A7D4DB;
-            border-left: 4px solid #4A5568;
-            color: #2D3748;
+
+        .top-menu .photo-cv {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 0;
+        }
+
+        .top-menu .menu-pages ul {
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-menu .menu-pages li {
+            margin-bottom: 0;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+        }
+
+        .page {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .upper-dynamic-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-blue);
+            opacity: 0.8;
+        }
+
+        .title {
+            font-size: 2rem;
             font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
         }
-        .active-top-menu-item {
-            background-color: #A7D4DB;
-            color: #2D3748;
+
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .about-text {
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-subparagraphs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .subparagraph {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .subparagraph-title {
+            font-size: 1.4rem;
             font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .subparagraph-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .subparagraph-images {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .subparagraph-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .subparagraph-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .subparagraph-text {
+            line-height: 1.7;
+        }
+
+        /* Projects Section */
+        .project-panel {
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .project-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .project-image {
+            width: 200px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-description {
+            flex: 1;
+            min-width: 300px;
+            line-height: 1.7;
+        }
+
+        .project-links {
+            margin-top: 20px;
+        }
+
+        .project-link-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .project-link-button:hover {
+            background-color: #005fa3;
+        }
+
+        /* Experience Section */
+        .experience-panels {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .experience-panel {
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .experience-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .experience-place {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .experience-location {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .experience-role {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .experience-dates {
+            color: #666;
+            font-style: italic;
+        }
+
+        .experience-description {
+            line-height: 1.7;
+            margin-top: 10px;
+        }
+
+        /* Contacts Section */
+        .contacts-content {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .contacts-text {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .contact-link:hover {
+            background-color: #005fa3;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-toggle button {
+            padding: 10px 15px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .language-toggle button:hover {
+            background-color: #005fa3;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-menu {
+                display: none;
+            }
+
+            .top-menu {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 80px;
+            }
+
+            .upper-dynamic-text {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+                padding-top: 80px;
+            }
+
+            .upper-dynamic-text {
+                font-size: 1.8rem;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .about-subparagraphs {
+                flex-direction: column;
+            }
+
+            .project-content, .experience-panel {
+                flex-direction: column;
+            }
+
+            .project-image, .experience-image {
+                width: 100%;
+                height: 200px;
+            }
         }
     </style>
 </head>
-<body class="flex flex-col sm:flex-row min-h-screen">
-
-    <!-- Top Menu for Mobile/Tablet Screens -->
-    <div class="fixed top-0 left-0 w-full bg-[#C3E0E5] shadow-md z-20 flex flex-col items-center p-4 sm:hidden rounded-b-lg">
-        <!-- Photo and Title -->
-        <div class="flex items-center mb-4">
-            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-xl mr-4">
-                <img src="images/CVphoto.jpg" onerror="this.onerror=null; this.src='https://placehold.co/150x150/A7D4DB/FFFFFF?text=Photo'" alt="Matteo Bari's CV Photo" class="w-full h-full object-cover">
+<body>
+    <div class="container">
+        <!-- Left Menu (for desktop) -->
+        <div class="left-menu">
+            <div class="photo-cv">
+                <img src="images/CVphoto.jpg" alt="Matteo Bari">
             </div>
-            <h1 class="text-xl font-bold text-gray-800">Matteo Bari</h1>
+            <div class="menu-pages">
+                <ul>
+                    <li><a href="#about" class="menu-link active" data-page="about">About myself</a></li>
+                    <li><a href="#projects" class="menu-link" data-page="projects">My projects</a></li>
+                    <li><a href="#experience" class="menu-link" data-page="experience">My experience</a></li>
+                    <li><a href="#contacts" class="menu-link" data-page="contacts">Contacts</a></li>
+                </ul>
+            </div>
         </div>
-        <!-- Menu pages -->
-        <nav class="flex flex-row flex-wrap justify-center w-full">
-            <a href="#about-myself" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">About myself</a>
-            <a href="#projects" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">My Projects</a>
-            <a href="#experience" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-gray-800">My Experience</a>
-            <a href="#contacts" class="menu-item-top py-2 px-3 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-1 mx-1 text-sm text-gray-800">Contacts</a>
-        </nav>
+
+        <!-- Top Menu (for mobile/tablet) -->
+        <div class="top-menu">
+            <div class="top-menu-content">
+                <div class="photo-cv">
+                    <img src="images/CVphoto.jpg" alt="Matteo Bari">
+                </div>
+                <div class="menu-pages">
+                    <ul>
+                        <li><a href="#about" class="menu-link active" data-page="about">About</a></li>
+                        <li><a href="#projects" class="menu-link" data-page="projects">Projects</a></li>
+                        <li><a href="#experience" class="menu-link" data-page="experience">Experience</a></li>
+                        <li><a href="#contacts" class="menu-link" data-page="contacts">Contacts</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- About Page -->
+            <div id="about" class="page active">
+                <div class="upper-dynamic-text" id="about-dynamic-text">WELCOME</div>
+                <div class="title" id="about-title">About myself</div>
+                <div class="content">
+                    <div class="about-text" id="about-text">
+                        Welcome to my website! Let me introduce myself. I'm Matteo, and I'm originally from the magnificent city of Naples, where art, culture, and technique inspire my passion for sports and hobbies, all pursued with great initiative. On this site, you'll find the activities I'm involved in, my experience, and my projects.
+                    </div>
+                    <div class="about-subparagraphs">
+                        <div class="subparagraph">
+                            <div class="subparagraph-title" id="subparagraph1-title">My journey through school, theater, and beyond</div>
+                            <div class="subparagraph-content">
+                                <div class="subparagraph-image">
+                                    <img src="images/IMG-20230701-WA0008.jpg" alt="School and theater">
+                                </div>
+                                <div class="subparagraph-text" id="subparagraph1-text">
+                                    My formal training spans both scientific and humanities disciplines, with interests ranging from computer science to linguistics. Beyond academia, I immersed myself in theater arts within Naples' vibrant scene, learning outside institutional frameworks. I live in the historic center of Naples, where I practice martial arts at one of Italy's oldest gyms, Virtus Partenopea, established in 1926 within the San Domenico Maggiore complex.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subparagraph">
+                            <div class="subparagraph-title" id="subparagraph2-title">AEGEE</div>
+                            <div class="subparagraph-content">
+                                <div class="subparagraph-images">
+                                    <div class="subparagraph-image">
+                                        <img src="images/IMG_20240817_212947.jpg" alt="AEGEE event 1">
+                                    </div>
+                                    <div class="subparagraph-image">
+                                        <img src="images/IMG_20240810_181711.jpg" alt="AEGEE event 2">
+                                    </div>
+                                </div>
+                                <div class="subparagraph-text" id="subparagraph2-text">
+                                    Since July 2019, I have embraced the world of AEGEE, becoming an active member at both the local and international levels. AEGEE (Association des États Généraux des Étudiants de l'Europe) is a pan-European, non-political, and non-profit student organization, founded in 1985 and entirely run by volunteers. Its mission is to promote integration, cooperation, and dialogue among young people across Europe. Its unique structure is based on Local Antennas (approximately 130 across 40 countries) which, without intermediate national branches, organize cultural events, debates, and integration activities for students in their respective regions, reporting directly to the European Board. Its most iconic project is the Summer University (SU): a 1-3 week international experience entirely organized by a local antenna. This cultural exchange project combines workshops, excursions, themed evenings, and a packed social calendar, offering participants from all over Europe a unique way to travel, build international friendships, and fully immerse themselves in European cultural diversity at an affordable cost. The association's decision-making core is the Agora, a bi-annual general assembly that brings together hundreds of members to vote on strategies, elect the board, and network, serving as a vivid example of participatory democracy and cultural exchange.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Page -->
+            <div id="projects" class="page">
+                <div class="upper-dynamic-text" id="projects-dynamic-text">PROJECTS & INNOVATION</div>
+                <div class="title" id="projects-title">My Projects</div>
+                <div class="content">
+                    <div class="project-description" id="projects-description">
+                        Here you can explore a selection of my recent work. Each project represents a unique challenge and a creative solution. My projects vary in different types of activities and practical and functional purposes, embracing vast fields of knowledge, from art to technology, carried out with great passion of creative skill and illuminating ingenuity.
+                    </div>
+                    <div class="project-panel">
+                        <div class="project-title" id="project1-title">Prompt engineering</div>
+                        <div class="project-content">
+                            <div class="project-image">
+                                <img src="images/promptden.png" alt="Prompt Engineering">
+                            </div>
+                            <div class="project-description" id="project1-description">
+                                In this project, I've applied prompt engineering techniques to develop AI models for various tasks. I focused on optimizing prompts to achieve more accurate and contextually relevant responses from large language models. The project includes examples of creative writing, data analysis, and problem-solving using structured prompts, and so on.<br><br>
+                                Below there are the links for the websites where I publish and sell my prompts:
+                            </div>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://promptden.com/" class="project-link-button" id="project1-link" target="_blank">promptden</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Page -->
+            <div id="experience" class="page">
+                <div class="upper-dynamic-text" id="experience-dynamic-text">MY JOURNEYS UNTIL NOW</div>
+                <div class="title" id="experience-title">My Experience</div>
+                <div class="content">
+                    <div class="experience-description" id="experience-description">
+                        Here you can see a summary of my professional and personal experiences. Each one has contributed to my skills and growth.
+                    </div>
+                    <div class="experience-panels">
+                        <!-- Experience Panel 1 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/IMG-20190701-WA0025.jpg" alt="FISU">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">FISU</div>
+                                    <div class="experience-dates">03/07/2019 - 14/07/2019</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">Delegate attaché</div>
+                                <div class="experience-description" id="experience1-description">
+                                    In the beautiful middle of the 30TH SUMMER UNIVERSIADE NAPOLI 2019, as a delegate attaché of the Thailand nation, I provided logistical support and assistance to international delegations during the sporting event, ensuring a smooth and positive experience.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 2 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/IMG-20220706-WA0050.jpg" alt="AEGEE-Napoli">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">AEGEE-Napoli</div>
+                                    <div class="experience-dates">01/10/2021 - 30/01/2023</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">General secretary</div>
+                                <div class="experience-description" id="experience2-description">
+                                    After various and international experiences in AEGEE, I decided the journey to candidate myself as General secretary of the local board. In this role, I managed internal communications and administrative tasks for the AEGEE-Napoli board, facilitating the organization and execution of cultural and integration events.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 3 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/Via_Chiaia.jpg" alt="Chiaja Hotel de Charme">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">Chiaja Hotel de Charme</div>
+                                    <div class="experience-dates">01/03/2023 - 31/05/2023</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">Hospitality establishment receptionist</div>
+                                <div class="experience-description" id="experience3-description">
+                                    In the wonderful charm of via Chiaja, once the street of the Neapolitan brothel during the Belle Époque period, I handled guest check-ins and check-outs, provided customer service, and managed reservations at the front desk of this hotel, ensuring a welcoming and efficient guest experience.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 4 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/IMG-20231207-WA0039.jpg" alt="Fondazione AMESCI">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">Fondazione AMESCI</div>
+                                    <div class="experience-dates">27/06/2023 - 26/06/2024</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">Universal Civil Service volunteer operator</div>
+                                <div class="experience-description" id="experience4-description">
+                                    As a volunteer operator for the greatest promoting foundation of the Universal Civil Service in Italy, I participated in the intermiedary communication of the community projects, offering support and assistance in various capacities to help the stakeholders and other Universal Civil Service volunteer operators in their social well-being and bureaucratic processes.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 5 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/ParalympicGamesParis2025TeamPhoto.jpg" alt="International Paralympic Committee">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">International Paralympic Committee</div>
+                                    <div class="experience-dates">30/08/2024 - 05/09/2024</div>
+                                </div>
+                                <div class="experience-location">Châteauroux, France</div>
+                                <div class="experience-role">Victory ceremony preparation team member</div>
+                                <div class="experience-description" id="experience5-description">
+                                    In the extraordinary event of the Paralympic Games Paris 2024, I contributed to the organization and seamless execution of victory ceremonies of shooting sports in Châteauroux during the international competitions, ensuring all protocols and preparations were meticulously followed.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 6 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/e3d20863-aa9a-49ea-bf7a-76de6c9c5e76~1.jpg" alt="Città della Scienza">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">Città della Scienza</div>
+                                    <div class="experience-dates">19/10/2024 - 20/10/2024</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">FUTURO REMOTO volunteer</div>
+                                <div class="experience-description" id="experience6-description">
+                                    As a volunteer at the FUTURO REMOTO science festival, I assisted in event operations and supported educational activities to promote scientific curiosity and engagement.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 7 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/Gemini_Generated_Image_fr3ch2fr3ch2fr3c.png" alt="Logogramma s.r.l.">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">Logogramma s.r.l.</div>
+                                    <div class="experience-dates">18/03/2025 - 24/06/2025</div>
+                                </div>
+                                <div class="experience-location">Naples, Italy</div>
+                                <div class="experience-role">Computational linguist internship</div>
+                                <div class="experience-description" id="experience7-description">
+                                    During this internship in the Incubator of Campania New Steel placed in Città della Scienza, I have been involved in applying computational and linguistic methods to analyze and process human language data, contributing to research and development in Large Language Models technology.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Panel 8 -->
+                        <div class="experience-panel">
+                            <div class="experience-image">
+                                <img src="images/Eröffnungsfeier_Duisburg_FISU-2025-1.jpg" alt="FISU">
+                            </div>
+                            <div class="experience-details">
+                                <div class="experience-header">
+                                    <div class="experience-place">FISU</div>
+                                    <div class="experience-dates">15/07/2025 - 27/07/2025</div>
+                                </div>
+                                <div class="experience-location">Duisburg and Essen, Germany</div>
+                                <div class="experience-role">FISU World University Games 2025 volunteer</div>
+                                <div class="experience-description" id="experience8-description">
+                                    During the magic of the 32TH SUMMER UNIVERSIADE Rhine-Ruhr 2025, I was part of the volunteering team, assisting with various organizational and operational tasks to ensure the event runs smoothly for all the participants.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Page -->
+            <div id="contacts" class="page">
+                <div class="upper-dynamic-text" id="contacts-dynamic-text">NEW JOURNEYS</div>
+                <div class="title" id="contacts-title">Contacts</div>
+                <div class="content">
+                    <div class="contacts-content">
+                        <div class="contacts-text" id="contacts-text">
+                            Thank you for visiting my website. I am always open to new opportunities and collaborations. You can reach me through the following channels:
+                        </div>
+                        <div class="contact-links">
+                            <a href="mailto:matteobarinapoli@gmail.com" class="contact-link">Email</a>
+                            <a href="https://www.linkedin.com/in/matteo-bari-876ba923b" class="contact-link" target="_blank">LinkedIn</a>
+                            <a href="https://ruul.space/pizzaprompt" class="contact-link" target="_blank">Ruul</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Left Menu for Desktop Screens -->
-    <div class="hidden sm:flex fixed top-0 left-0 w-64 h-screen flex-shrink-0 flex-col items-center bg-[#C3E0E5] p-6 rounded-r-lg z-10 overflow-y-auto scrollbar-hide">
-        
-        <!-- CV Photo -->
-        <div class="w-32 h-32 md:w-40 md:h-40 bg-gray-700 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl">
-            <img src="images/CVphoto.jpg" onerror="this.onerror=null; this.src='https://placehold.co/150x150/A7D4DB/FFFFFF?text=Photo'" alt="Matteo Bari's CV Photo" class="w-full h-full object-cover">
-        </div>
-
-        <!-- Title -->
-        <h1 class="text-3xl sm:text-2xl font-bold mb-8 text-center text-gray-800">Matteo Bari</h1>
-
-        <!-- Menu pages -->
-        <nav class="flex flex-col w-full text-center">
-            <a href="#about-myself" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">About myself</a>
-            <a href="#projects" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Projects</a>
-            <a href="#experience" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">My Experience</a>
-            <a href="#contacts" class="menu-item-left py-3 px-4 rounded-md transition-all duration-200 hover:bg-[#A7D4DB] mb-2 border border-transparent text-gray-800">Contacts</a>
-        </nav>
-    </div>
-
-    <!-- Main content container to accommodate the fixed menu -->
-    <div class="flex-1 overflow-hidden pt-48 sm:pt-0 sm:ml-64">
-        <div id="content-area" class="w-full p-6 md:p-10 lg:p-16 overflow-y-auto scrollbar-hide">
-            <!-- Upper dynamic text slide with a transparent background -->
-            <div id="text-slide" class="relative w-full mb-8 rounded-lg overflow-hidden flex items-center justify-center bg-transparent">
-                <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal leading-tight">WELCOME</h2>
-            </div>
-
-            <!-- Dynamic Title & Content -->
-            <div id="page-content">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="language-toggle">Switch to Italian</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const contentArea = document.getElementById('content-area');
-            const menuItemsLeft = document.querySelectorAll('.menu-item-left');
-            const menuItemsTop = document.querySelectorAll('.menu-item-top');
-            const allMenuItems = document.querySelectorAll('.menu-item-left, .menu-item-top');
-            const pageContent = document.getElementById('page-content');
-            const textSlide = document.getElementById('text-slide');
-
-            // --- DATA MODELS ---
-            const data = {
-                aboutMyself: {
-                    bigText: "WELCOME",
-                    mainText: "Welcome to my website! <br> Let me introduce myself. I'm Matteo, and I'm originally from the magnificent city of Naples, where art, culture, and technique inspire my passion for sports and hobbies, all pursued with great initiative. On this site, you'll find the activities I'm involved in, my experience, and my projects.",
-                    subparagraphs: [
-                        {
-                            title: "My journey through school, theater, and beyond",
-                            description: "My formal training spans both scientific and humanities disciplines, with interests ranging from computer science to linguistics. Beyond academia, I immersed myself in theater arts within Naples' vibrant scene, learning outside institutional frameworks. I live in the historic center of Naples, where I practice martial arts at one of Italy's oldest gyms, Virtus Partenopea, established in 1926 within the San Domenico Maggiore complex.",
-                            image: "images/IMG-20230701-WA0008.jpg"
-                        },
-                        {
-                            title: "AEGEE",
-                            description: "Since July 2019, I have embraced the world of AEGEE, becoming an active member at both the local and international levels. <br><br> AEGEE (Association des États Généraux des Étudiants de l'Europe) is a pan-European, non-political, and non-profit student organization, founded in 1985 and entirely run by volunteers. Its mission is to promote integration, cooperation, and dialogue among young people across Europe. Its unique structure is based on Local Antennas (approximately 130 across 40 countries) which, without intermediate national branches, organize cultural events, debates, and integration activities for students in their respective regions, reporting directly to the European Board. Its most iconic project is the Summer University (SU): a 1-3 week international experience entirely organized by a local antenna. This cultural exchange project combines workshops, excursions, themed evenings, and a packed social calendar, offering participants from all over Europe a unique way to travel, build international friendships, and fully immerse themselves in European cultural diversity at an affordable cost. <br><br> The association’s decision-making core is the Agora, a bi-annual general assembly that brings together hundreds of members to vote on strategies, elect the board, and network, serving as a vivid example of participatory democracy and cultural exchange.",
-                            images: ["images/IMG_20240817_212947.jpg", "images/IMG_20240810_181711.jpg"]
-                        }
-                    ]
-                },
-                projects: {
-                    bigText: "PROJECTS & INNOVATION",
-                    description: "Here you can explore a selection of my recent work. Each project represents a unique challenge and a creative solution. My projects vary in different types of activities and practical and functional purposes, embracing vast fields of knowledge, from art to technology, carried out with great passion of creative skill and illuminating ingenuity.",
-                    panels: [
-                        {
-                            title: "Prompt engineering",
-                            image: "images/promptden.png",
-                            description: "In this project, I've applied prompt engineering techniques to develop AI models for various tasks. I focused on optimizing prompts to achieve more accurate and contextually relevant responses from large language models. The project includes examples of creative writing, data analysis, and problem-solving using structured prompts, and so on.<br><br>Below there are the links for the websites where I publish and sell my prompts:",
-                            links: [{ title: "promptden", address: "https://promptden.com/" }]
-                        }
-                    ]
-                },
-                experience: {
-                    bigText: "MY JOURNEYS UNTIL NOW",
-                    description: "Here you can see a summary of my professional and personal experiences. Each one has contributed to my skills and growth.",
-                    panels: [
-                        { place: "FISU", city: "Naples", country: "Italy", role: "Delegate attaché", beginDate: "03/07/2019", endDate: "14/07/2019", image: "images/IMG-20190701-WA0025.jpg", description: "In the beautiful middle of the 30TH SUMMER UNIVERSIADE NAPOLI 2019, as a delegate attaché of the Thailand nation, I provided logistical support and assistance to international delegations during the sporting event, ensuring a smooth and positive experience." },
-                        { place: "AEGEE-Napoli", city: "Naples", country: "Italy", role: "General secretary", beginDate: "01/10/2021", endDate: "30/01/2023", image: "images/IMG-20220706-WA0050.jpg", description: "After various and international experiences in AEGEE, I decided the journey to candidate myself as General secretary of the local board. In this role, I managed internal communications and administrative tasks for the AEGEE-Napoli board, facilitating the organization and execution of cultural and integration events." },
-                        { place: "Chiaja Hotel de Charme", city: "Naples", country: "Italy", role: "Hospitality establishment receptionist", beginDate: "01/03/2023", endDate: "31/05/2023", image: "images/Via_Chiaia.jpg", link: "https://commons.wikimedia.org/wiki/File:Via_Chiaia.jpg", description: "In the wonderful charm of via Chiaja, once the street of the Neapolitan brothel during the Belle Époque period, I handled guest check-ins and check-outs, provided customer service, and managed reservations at the front desk of this hotel, ensuring a welcoming and efficient guest experience." },
-                        { place: "Fondazione AMESCI", city: "Naples", "country": "Italy", "role": "Universal Civil Service volunteer operator", beginDate: "27/06/2023", endDate: "26/06/2024", image: "images/IMG-20231207-WA0039.jpg", description: "As a volunteer operator for the greatest promoting foundation of the Universal Civil Service in Italy, I participated in the intermiedary communication of the community projects, offering support and assistance in various capacities to help the stakeholders and other Universal Civil Service volunteer operators in their social well-being and bureaucratic processes.." },
-                        { place: "International Paralympic Committee", city: "Châteauroux", country: "France", role: "Victory ceremony preparation team member", beginDate: "30/08/2024", endDate: "05/09/2024", image: "images/ParalympicGamesParis2025TeamPhoto.jpg", description: "In the extraordinary event of the Paralympic Games Paris 2024, I contributed to the organization and seamless execution of victory ceremonies of shooting sports in Châteauroux during the international competitions, ensuring all protocols and preparations were meticulously followed." },
-                        { place: "Città della Scienza", city: "Naples", country: "Italy", role: "FUTURO REMOTO volunteer", beginDate: "19/10/2024", endDate: "20/10/2024", image: "images/e3d20863-aa9a-49ea-bf7a-76de6c9c5e76~1.jpg", description: "As a volunteer at the FUTURO REMOTO science festival, I assisted in event operations and supported educational activities to promote scientific curiosity and engagement." },
-                        { place: "Logogramma s.r.l.", city: "Naples", country: "Italy", role: "Computational linguist internship", beginDate: "18/03/2025", endDate: "24/06/2025", image: "images/Gemini_Generated_Image_fr3ch2fr3ch2fr3c.png", description: "During this internship in the Incubator of Campania New Steel placed in Città della Scienza, I have been involved in applying computational and linguistic methods to analyze and process human language data, contributing to research and development in Large Language Models technology." },
-                        { place: "FISU", city: "Duisburg and Essen", country: "Germany", role: "FISU World University Games 2025 volunteer", beginDate: "15/07/2025", endDate: "27/07/2025", image: "images/Eröffnungsfeier_Duisburg_FISU-2025-1.jpg", link: "https://commons.wikimedia.org/wiki/File:Er%C3%B6ffnungsfeier_Duisburg_FISU-2025-1.jpg", description: "During the magic of the 32TH SUMMER UNIVERSIADE Rhine-Ruhr 2025, I was part of the volunteering team, assisting with various organizational and operational tasks to ensure the event runs smoothly for all the participants." }
-                    ]
-                },
-                contacts: {
-                    bigText: "NEW JOURNEYS",
-                    text: "Thank you for visiting my website. I am always open to new opportunities and collaborations. You can reach me through the following channels:",
-                    email: "matteobarinapoli@gmail.com",
-                    linkedin: "www.linkedin.com/in/matteo-bari-876ba923b"
-                }
-            };
-
-            // --- NAVIGATION AND CONTENT LOGIC ---
-            function updateContent(page) {
-                let contentHTML = '';
-                let title = '';
-                let textSlideContent = '';
-
-                switch (page) {
-                    case 'about-myself':
-                        title = 'About myself';
-                        textSlideContent = data.aboutMyself.bigText;
-                        contentHTML = `
-                            <p class="text-gray-800 leading-relaxed text-lg mb-4">
-                                ${data.aboutMyself.mainText.replace(/<\/n>/g, '<br>')}
-                            </p>
-                            
-                            <!-- Subparagraph 1: Image & Text side-by-side on larger screens -->
-                            <div class="mt-8 flex flex-col md:flex-row-reverse items-start gap-8">
-                                <div class="w-full md:w-2/5 flex-shrink-0">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2 md:hidden">${data.aboutMyself.subparagraphs[0].title}</h3>
-                                    <img src="${data.aboutMyself.subparagraphs[0].image}" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A7D4DB/FFFFFF?text=Image'" alt="${data.aboutMyself.subparagraphs[0].title}" class="w-full rounded-lg my-4 shadow-md md:m-0">
-                                </div>
-                                <div class="w-full md:w-3/5">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2 hidden md:block">${data.aboutMyself.subparagraphs[0].title}</h3>
-                                    <p class="text-gray-800 leading-relaxed">${data.aboutMyself.subparagraphs[0].description}</p>
-                                </div>
-                            </div>
-
-                            <!-- Subparagraph 2: Image & Text side-by-side on larger screens -->
-                            <div class="mt-8 flex flex-col md:flex-row items-start gap-8">
-                                <div class="w-full md:w-2/5 flex-shrink-0">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2 md:hidden">${data.aboutMyself.subparagraphs[1].title}</h3>
-                                    <div class="flex flex-row space-x-4 mb-4">
-                                        <img src="${data.aboutMyself.subparagraphs[1].images[0]}" onerror="this.onerror=null; this.src='https://placehold.co/200x150/A7D4DB/FFFFFF?text=Image'" alt="AEGEE image 1" class="w-1/2 rounded-lg shadow-md">
-                                        <img src="${data.aboutMyself.subparagraphs[1].images[1]}" onerror="this.onerror=null; this.src='https://placehold.co/200x150/A7D4DB/FFFFFF?text=Image'" alt="AEGEE image 2" class="w-1/2 rounded-lg shadow-md">
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-3/5">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2 hidden md:block">${data.aboutMyself.subparagraphs[1].title}</h3>
-                                    <p class="text-gray-800 leading-relaxed">${data.aboutMyself.subparagraphs[1].description.replace(/<\/n>/g, '<br>')}</p>
-                                </div>
-                            </div>
-                        `;
-                        break;
-                    case 'projects':
-                        title = 'My Projects';
-                        textSlideContent = data.projects.bigText;
-                        contentHTML = `
-                            <p class="text-gray-800 leading-relaxed text-lg mb-8">
-                                ${data.projects.description}
-                            </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <!-- Project Panels -->
-                                ${data.projects.panels.map(project => `
-                                    <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                        <h3 class="text-2xl font-bold mb-4 text-gray-900">${project.title}</h3>
-                                        <img src="${project.image}" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A7D4DB/FFFFFF?text=Image'" alt="${project.title}" class="w-full rounded-lg mb-4">
-                                        <p class="text-gray-700 leading-relaxed mb-4">
-                                            ${project.description.replace(/<\/n>/g, '<br>')}
-                                        </p>
-                                        ${project.links && project.links.length > 0 ? 
-                                            `<div class="mt-4 flex flex-col sm:flex-row gap-4">
-                                                ${project.links.map(link => `
-                                                    <a href="${link.address}" target="_blank" class="w-full sm:w-auto px-6 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition-colors duration-200 text-center">
-                                                        ${link.title}
-                                                    </a>
-                                                `).join('')}
-                                            </div>` 
-                                        : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                        break;
-                    case 'experience':
-                        title = 'My Experience';
-                        textSlideContent = data.experience.bigText;
-                        contentHTML = `
-                            <p class="text-gray-800 leading-relaxed text-lg mb-8">
-                                ${data.experience.description}
-                            </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <!-- Experience Panels -->
-                                ${data.experience.panels.map(exp => `
-                                    <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                                        <h3 class="text-2xl font-bold mb-2 text-gray-900">${exp.place}, ${exp.city}, ${exp.country}</h3>
-                                        <p class="text-gray-600 mb-2"><span class="font-semibold">Role:</span> ${exp.role}</p>
-                                        <p class="text-gray-600 text-sm mb-4"><span class="font-semibold">Dates:</span> ${exp.beginDate} - ${exp.endDate}</p>
-                                        ${exp.link ? `<a href="${exp.link}" target="_blank" rel="noopener noreferrer">` : ''}
-                                            <img src="${exp.image}" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A7D4DB/FFFFFF?text=Image'" alt="${exp.place}" class="w-full rounded-lg mb-4">
-                                        ${exp.link ? `</a>` : ''}
-                                        <p class="text-gray-700 leading-relaxed">
-                                            ${exp.description}
-                                        </p>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                        break;
-                    case 'contacts':
-                        title = 'Contacts';
-                        textSlideContent = data.contacts.bigText;
-                        contentHTML = `
-                            <p class="text-gray-800 leading-relaxed text-lg mb-8">
-                                ${data.contacts.text}
-                            </p>
-                            <div class="space-y-4">
-                                <p class="text-lg">
-                                    <span class="font-bold">Email:</span> ${data.contacts.email}
-                                </p>
-                                <p class="text-lg">
-                                    <span class="font-bold">LinkedIn:</span> <a href="https://${data.contacts.linkedin}" target="_blank" class="text-blue-600 hover:underline">${data.contacts.linkedin}</a>
-                                </p>
-                            </div>
-                        `;
-                        break;
-                    default:
-                        updateContent('about-myself');
-                        return;
-                }
-                
-                // Update the main content area
-                pageContent.innerHTML = `<h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">${title}</h2>${contentHTML}`;
-                textSlide.innerHTML = `<h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold text-gray-800 tracking-wider text-center whitespace-normal leading-tight">${textSlideContent}</h2>`;
-                contentArea.scrollTop = 0; // Scroll to the top of the content area
-            }
-
-            // Set up click handlers for all menu items
-            allMenuItems.forEach(item => {
-                item.addEventListener('click', (e) => {
+        // Page Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-link');
+            const pages = document.querySelectorAll('.page');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    allMenuItems.forEach(el => {
-                        el.classList.remove('active-menu-item');
-                        el.classList.remove('active-top-menu-item');
-                    });
                     
-                    const page = e.target.getAttribute('href').substring(1);
-                    updateContent(page);
+                    // Remove active class from all links and pages
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    pages.forEach(p => p.classList.remove('active'));
                     
-                    // Add active class based on menu type
-                    menuItemsLeft.forEach(el => {
-                        if (el.getAttribute('href').substring(1) === page) {
-                            el.classList.add('active-menu-item');
-                        }
-                    });
-                    menuItemsTop.forEach(el => {
-                        if (el.getAttribute('href').substring(1) === page) {
-                            el.classList.add('active-top-menu-item');
-                        }
-                    });
+                    // Add active class to clicked link and corresponding page
+                    this.classList.add('active');
+                    const targetPage = document.getElementById(this.getAttribute('data-page'));
+                    targetPage.classList.add('active');
+                    
+                    // Scroll to top of page
+                    window.scrollTo(0, 0);
                 });
             });
-
-            // Handle initial page load
-            const initialPage = window.location.hash.substring(1) || 'about-myself';
-            const initialMenuItemLeft = document.querySelector(`.menu-item-left[href="#${initialPage}"]`);
-            const initialMenuItemTop = document.querySelector(`.menu-item-top[href="#${initialPage}"]`);
-            if (initialMenuItemLeft) {
-                initialMenuItemLeft.classList.add('active-menu-item');
+            
+            // Language Toggle
+            const languageToggle = document.getElementById('language-toggle');
+            let currentLanguage = 'english';
+            
+            // English content
+            const englishContent = {
+                // Dynamic texts
+                'about-dynamic-text': 'WELCOME',
+                'projects-dynamic-text': 'PROJECTS & INNOVATION',
+                'experience-dynamic-text': 'MY JOURNEYS UNTIL NOW',
+                'contacts-dynamic-text': 'NEW JOURNEYS',
+                
+                // Titles
+                'about-title': 'About myself',
+                'projects-title': 'My Projects',
+                'experience-title': 'My Experience',
+                'contacts-title': 'Contacts',
+                
+                // About section
+                'about-text': 'Welcome to my website! Let me introduce myself. I\'m Matteo, and I\'m originally from the magnificent city of Naples, where art, culture, and technique inspire my passion for sports and hobbies, all pursued with great initiative. On this site, you\'ll find the activities I\'m involved in, my experience, and my projects.',
+                'subparagraph1-title': 'My journey through school, theater, and beyond',
+                'subparagraph1-text': 'My formal training spans both scientific and humanities disciplines, with interests ranging from computer science to linguistics. Beyond academia, I immersed myself in theater arts within Naples\' vibrant scene, learning outside institutional frameworks. I live in the historic center of Naples, where I practice martial arts at one of Italy\'s oldest gyms, Virtus Partenopea, established in 1926 within the San Domenico Maggiore complex.',
+                'subparagraph2-title': 'AEGEE',
+                'subparagraph2-text': 'Since July 2019, I have embraced the world of AEGEE, becoming an active member at both the local and international levels. AEGEE (Association des États Généraux des Étudiants de l\'Europe) is a pan-European, non-political, and non-profit student organization, founded in 1985 and entirely run by volunteers. Its mission is to promote integration, cooperation, and dialogue among young people across Europe. Its unique structure is based on Local Antennas (approximately 130 across 40 countries) which, without intermediate national branches, organize cultural events, debates, and integration activities for students in their respective regions, reporting directly to the European Board. Its most iconic project is the Summer University (SU): a 1-3 week international experience entirely organized by a local antenna. This cultural exchange project combines workshops, excursions, themed evenings, and a packed social calendar, offering participants from all over Europe a unique way to travel, build international friendships, and fully immerse themselves in European cultural diversity at an affordable cost. The association\'s decision-making core is the Agora, a bi-annual general assembly that brings together hundreds of members to vote on strategies, elect the board, and network, serving as a vivid example of participatory democracy and cultural exchange.',
+                
+                // Projects section
+                'projects-description': 'Here you can explore a selection of my recent work. Each project represents a unique challenge and a creative solution. My projects vary in different types of activities and practical and functional purposes, embracing vast fields of knowledge, from art to technology, carried out with great passion of creative skill and illuminating ingenuity.',
+                'project1-title': 'Prompt engineering',
+                'project1-description': 'In this project, I\'ve applied prompt engineering techniques to develop AI models for various tasks. I focused on optimizing prompts to achieve more accurate and contextually relevant responses from large language models. The project includes examples of creative writing, data analysis, and problem-solving using structured prompts, and so on.<br><br>Below there are the links for the websites where I publish and sell my prompts:',
+                'project1-link': 'promptden',
+                
+                // Experience section
+                'experience-description': 'Here you can see a summary of my professional and personal experiences. Each one has contributed to my skills and growth.',
+                'experience1-description': 'In the beautiful middle of the 30TH SUMMER UNIVERSIADE NAPOLI 2019, as a delegate attaché of the Thailand nation, I provided logistical support and assistance to international delegations during the sporting event, ensuring a smooth and positive experience.',
+                'experience2-description': 'After various and international experiences in AEGEE, I decided the journey to candidate myself as General secretary of the local board. In this role, I managed internal communications and administrative tasks for the AEGEE-Napoli board, facilitating the organization and execution of cultural and integration events.',
+                'experience3-description': 'In the wonderful charm of via Chiaja, once the street of the Neapolitan brothel during the Belle Époque period, I handled guest check-ins and check-outs, provided customer service, and managed reservations at the front desk of this hotel, ensuring a welcoming and efficient guest experience.',
+                'experience4-description': 'As a volunteer operator for the greatest promoting foundation of the Universal Civil Service in Italy, I participated in the intermiedary communication of the community projects, offering support and assistance in various capacities to help the stakeholders and other Universal Civil Service volunteer operators in their social well-being and bureaucratic processes.',
+                'experience5-description': 'In the extraordinary event of the Paralympic Games Paris 2024, I contributed to the organization and seamless execution of victory ceremonies of shooting sports in Châteauroux during the international competitions, ensuring all protocols and preparations were meticulously followed.',
+                'experience6-description': 'As a volunteer at the FUTURO REMOTO science festival, I assisted in event operations and supported educational activities to promote scientific curiosity and engagement.',
+                'experience7-description': 'During this internship in the Incubator of Campania New Steel placed in Città della Scienza, I have been involved in applying computational and linguistic methods to analyze and process human language data, contributing to research and development in Large Language Models technology.',
+                'experience8-description': 'During the magic of the 32TH SUMMER UNIVERSIADE Rhine-Ruhr 2025, I was part of the volunteering team, assisting with various organizational and operational tasks to ensure the event runs smoothly for all the participants.',
+                
+                // Contacts section
+                'contacts-text': 'Thank you for visiting my website. I am always open to new opportunities and collaborations. You can reach me through the following channels:'
+            };
+            
+            // Italian content
+            const italianContent = {
+                // Dynamic texts
+                'about-dynamic-text': 'Benvenuto',
+                'projects-dynamic-text': 'PROGETTI & INNOVAZIONE',
+                'experience-dynamic-text': 'LE MIE AVVENTURE FINO AD ORA',
+                'contacts-dynamic-text': 'NUOVE AVVENTURE',
+                
+                // Titles
+                'about-title': 'Su di me',
+                'projects-title': 'I miei progetti',
+                'experience-title': 'La mia esperienza',
+                'contacts-title': 'Contatti',
+                
+                // About section
+                'about-text': 'Benvenuto nel mio sito! Mi presento, sono Matteo e sono originario della magnifica città di Napoli in cui tra arte, cultura e tecnica mi immedesimo nelle mie passioni sportive e di passatempo, tutto svol in grande intraprendenza. In questo sito troverai le attività che svolgo, la mia esperienza ed i miei progetti.',
+                'subparagraph1-title': 'La mia storia tra scuola, teatro e altro',
+                'subparagraph1-text': 'La mia formazione formale comprende le discipline scientifiche ed umanistiche, con interesse dall\'informatica fino alla linguistica, oltre ad aver vissuto una formazione teatrale al di fuori delle istituzioni scolastiche nel pieno vivo dell\'arte teatrale napoletana, vivendo appieno il centro storico di Napoli nel quale vivo e pratico attività disciplinari di arti marziali presso una delle palestre più antiche in Italia situata nel complesso di San Domenico Maggiore, la Virtus Partenopea, nata nel 1926.',
+                'subparagraph2-title': 'AEGEE',
+                'subparagraph2-text': 'A partire dal luglio 2019 ho abbracciato il mondo di AEGEE diventandone membro attivo in ambito locale ed internazionale. AEGEE (Association des États Généraux des Étudiants de l\'Europe) è un\'organizzazione studentesca paneuropea, apartitica e no-profit, fondata nel 1985 e gestita interamente da volontari, il cui scopo è promuovere l\'integrazione, la cooperazione e il dialogo tra i giovani in Europa. La sua struttura unica si basa su Antenne locali (circa 130 in 40 paesi) che, senza sedi nazionali intermedie, organizzano eventi culturali, dibattiti e attività di integrazione per studenti sul proprio territorio, rispondendo direttamente al board europeo. Il suo progetto più iconico è la Summer University (SU): un\'esperienza internazionale della durata di 1-3 settimane, organizzata interamente da un\'antenna locale. Si tratta di un progetto di scambio culturale che combina workshop, escursioni, serate tematiche e un fitto programma sociale, offrendo a partecipanti di tutta Europa un modo unico per viaggiare, costruire amicizie internazionali e vivere appieno la diversità culturale europea a costi contenuti. Il cuore decisionale dell\'associazione è l\'Agorà, l\'assemblea generale bimestrale che riunisce centinaia di membri per votare le strategie, eleggere il direttivo e fare networking, in un vivido esempio di democrazia partecipativa e scambio culturale.',
+                
+                // Projects section
+                'projects-description': 'Qui puoi esplorare tutti i miei progetti svolti. Ogni progetto rappresenta una sfida unica e una soluzione creativa. I miei progetti spaziano tra diversi tipi di attività e scopi pratici e funzionali, abbracciando vasti campi della conoscenza, dall\'arte alla tecnologia, realizzati con grande passione di abilità creativa e d\'ingegnosità illuminante.',
+                'project1-title': 'Ingegneria del prompt',
+                'project1-description': 'In questo progetto, ho applicato tecniche di prompt engineering per sviluppare modelli di IA per varie attività. Mi sono concentrato sull\'ottimizzazione dei prompt per ottenere risposte più accurate e contestualmente pertinenti da modelli linguistici di grandi dimensioni (LLM). Il progetto include esempi di scrittura creativa, analisi dei dati e problem solving utilizzando prompt strutturati, e così via.<br><br>Qui sotto sono presenti i link per i siti web in cui pubblico e vendo i miei prompt:',
+                'project1-link': 'promptden',
+                
+                // Experience section
+                'experience-description': 'Qui puoi vedere un riepilogo delle mie esperienze professionali e personali. Ciascuna di esse ha contribuito alla mia crescita e alle mie competenze.',
+                'experience1-description': 'Nel cuore della splendida 30ª edizione della SUMMER UNIVERSIADE NAPOLI 2019, in qualità di attaché delegato per la FISU, ho fornito supporto logistico e assistenza alle delegazioni internazionali durante l\'evento sportivo, garantendo un\'esperienza serena e positiva.',
+                'experience2-description': 'Dopo varie esperienze internazionali in AEGEE, ho deciso di intraprendere il percorso per candidarmi come Segretario Generale del comitato direttivo locale. In questo ruolo, ho gestito le comunicazioni interne e le attività amministrative del comitato direttivo di AEGEE-Napoli, facilitando l\'organizzazione e la realizzazione di eventi culturali e di integrazione.',
+                'experience3-description': 'Nell\'incantevole fascino di via Chiaja, un tempo strada del bordello napoletano durante il periodo della Belle Époque, mi sono occupato dei check-in e check-out degli ospiti, ho fornito servizio clienti e gestito le prenotazioni alla reception di questo hotel, garantendo un\'accoglienza ospitale ed un\'esperienza efficiente per gli ospiti.',
+                'experience4-description': 'In qualità di operatore volontario per la più grande fondazione promotrice del Servizio Civile Universale in Italia, ho partecipato alla comunicazione intermedia dei progetti comunitari, offrendo supporto e assistenza in varie capacità per aiutare i portatori di interesse e gli altri operatori volontari del Servizio Civile Universale nel loro benessere sociale e nei processi burocratici.',
+                'experience5-description': 'Nell\'eccezionale contesto dei Giochi Paralimpici di Parigi 2024, ho contribuito all\'organizzazione e all\'esecuzione impeccabile delle cerimonie di premiazione per gli sport di tiro a Châteauroux durante le competizioni internazionali, assicurandomi che tutti i protocolli e le preparazioni fossero seguiti meticolosamente.',
+                'experience6-description': 'In qualità di volontario al festival della scienza FUTURO REMOTO, ho assistito alle operazioni di gestione dell\'evento e ho supportato attività educative per promuovere la curiosità scientifica e il coinvolgimento del pubblico.',
+                'experience7-description': 'Durante questo tirocinio presso l\'Incubatore di Campania New Steel, situato a Città della Scienza, sono stato coinvolto nell\'applicazione di metodi computazionali e linguistici per analizzare ed elaborare dati del linguaggio umano, contribuendo alla ricerca e allo sviluppo nel campo della tecnologia dei Large Language Model.',
+                'experience8-description': 'Durante la magia della 32ª SUMMER UNIVERSIADE Rhine-Ruhr 2025, ho fatto parte del team dei volontari, supportando varie attività organizzative e operative per garantire il regolare svolgimento dell\'evento per tutti i partecipanti.',
+                
+                // Contacts section
+                'contacts-text': 'Grazie per aver visitato il mio sito. Sono sempre aperto a nuove opportunità e collaborazioni. Puoi contattarmi attraverso i seguenti canali:'
+            };
+            
+            languageToggle.addEventListener('click', function() {
+                if (currentLanguage === 'english') {
+                    updateContent(italianContent);
+                    currentLanguage = 'italian';
+                    languageToggle.textContent = 'Switch to English';
+                } else {
+                    updateContent(englishContent);
+                    currentLanguage = 'english';
+                    languageToggle.textContent = 'Switch to Italian';
+                }
+            });
+            
+            function updateContent(content) {
+                for (const [key, value] of Object.entries(content)) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.innerHTML = value;
+                    }
+                }
             }
-            if (initialMenuItemTop) {
-                initialMenuItemTop.classList.add('active-top-menu-item');
-            }
-            updateContent(initialPage);
         });
     </script>
 </body>
